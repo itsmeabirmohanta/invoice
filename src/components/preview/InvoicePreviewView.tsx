@@ -11,8 +11,7 @@ const InvoicePreviewView: React.FC = () => {
     generatePDF, 
     isProcessing, 
     statusMessage,
-    setActiveView,
-    setIsProcessing
+    setActiveView
   } = useInvoice();
   const [pdfGenerated, setPdfGenerated] = useState(false);
   const [error, setError] = useState('');
@@ -42,8 +41,7 @@ const InvoicePreviewView: React.FC = () => {
     setError('');
     
     try {
-      // Set processing state immediately for better UI feedback
-      setIsProcessing(true);
+      // No need to set processing state manually as it's handled in the context
       
       // Ensure preview is fully rendered before generating PDF
       await new Promise(resolve => setTimeout(resolve, 300));
@@ -57,8 +55,6 @@ const InvoicePreviewView: React.FC = () => {
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred while generating the PDF.');
       console.error('PDF generation error:', err);
-    } finally {
-      setIsProcessing(false);
     }
   };
 
@@ -203,7 +199,7 @@ const InvoicePreviewView: React.FC = () => {
                 <p>${currentInvoice.from.address.city}${currentInvoice.from.address.state ? `, ${currentInvoice.from.address.state}` : ''}${currentInvoice.from.address.zip ? ` ${currentInvoice.from.address.zip}` : ''}</p>
                 <p>${currentInvoice.from.phone || ''}</p>
                 <p>${currentInvoice.from.email || ''}</p>
-                ${currentInvoice.from.gstin ? `<p>GSTIN: ${currentInvoice.from.gstin}</p>` : ''}
+                ${currentInvoice.from.businessNumber ? `<p>Business Number: ${currentInvoice.from.businessNumber}</p>` : ''}
               </div>
               
               <!-- Invoice details -->
@@ -228,9 +224,8 @@ const InvoicePreviewView: React.FC = () => {
               <h3>${currentInvoice.to.name}</h3>
               <p>${currentInvoice.to.address.street1}${currentInvoice.to.address.street2 ? `, ${currentInvoice.to.address.street2}` : ''}</p>
               <p>${currentInvoice.to.address.city}${currentInvoice.to.address.state ? `, ${currentInvoice.to.address.state}` : ''}${currentInvoice.to.address.zip ? ` ${currentInvoice.to.address.zip}` : ''}</p>
-              ${currentInvoice.to.gstin ? `<p>GSTIN: ${currentInvoice.to.gstin}</p>` : ''}
-              ${currentInvoice.to.email ? `<p>${currentInvoice.to.email}</p>` : ''}
               ${currentInvoice.to.phone ? `<p>${currentInvoice.to.phone}</p>` : ''}
+              ${currentInvoice.to.email ? `<p>${currentInvoice.to.email}</p>` : ''}
             </div>
             
             <!-- Invoice Items -->
@@ -263,7 +258,7 @@ const InvoicePreviewView: React.FC = () => {
                   <span>${formatCurrency(calculateSubtotal(), currentInvoice.currency)}</span>
                 </div>
                 
-                ${currentInvoice.tax?.type !== 'None' && currentInvoice.tax?.rate > 0 ? `
+                ${currentInvoice.tax?.type !== 'None' && currentInvoice.tax?.rate && currentInvoice.tax.rate > 0 ? `
                   <div class="totals-row">
                     <span>GST (${currentInvoice.tax.rate}%)</span>
                     <span>${formatCurrency(calculateTax(), currentInvoice.currency)}</span>
@@ -404,8 +399,8 @@ const InvoicePreviewView: React.FC = () => {
             </p>
             <p className="text-gray-600 mt-1">{currentInvoice.from.phone}</p>
             <p className="text-gray-600">{currentInvoice.from.email}</p>
-            {currentInvoice.from.gstin && (
-              <p className="text-gray-600 mt-1">GSTIN: {currentInvoice.from.gstin}</p>
+            {currentInvoice.from.businessNumber && (
+              <p className="text-gray-600 mt-1">Business Number: {currentInvoice.from.businessNumber}</p>
             )}
           </div>
 
@@ -444,14 +439,11 @@ const InvoicePreviewView: React.FC = () => {
             {currentInvoice.to.address.state && `, ${currentInvoice.to.address.state}`}
             {currentInvoice.to.address.zip && ` ${currentInvoice.to.address.zip}`}
           </p>
-          {currentInvoice.to.gstin && (
-            <p className="text-gray-600 mt-1">GSTIN: {currentInvoice.to.gstin}</p>
-          )}
-          {currentInvoice.to.email && (
-            <p className="text-gray-600 mt-1">{currentInvoice.to.email}</p>
-          )}
           {currentInvoice.to.phone && (
             <p className="text-gray-600">{currentInvoice.to.phone}</p>
+          )}
+          {currentInvoice.to.email && (
+            <p className="text-gray-600">{currentInvoice.to.email}</p>
           )}
         </div>
 
@@ -487,7 +479,7 @@ const InvoicePreviewView: React.FC = () => {
               <span>{formatCurrency(calculateSubtotal(), currentInvoice.currency)}</span>
             </div>
             
-            {currentInvoice.tax?.type !== 'None' && currentInvoice.tax?.rate > 0 && (
+            {currentInvoice.tax?.type !== 'None' && currentInvoice.tax?.rate && currentInvoice.tax.rate > 0 && (
               <div className="flex justify-between py-2 total-row">
                 <span className="font-semibold text-gray-600">
                   GST ({currentInvoice.tax.rate}%)

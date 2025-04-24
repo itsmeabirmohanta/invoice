@@ -22,7 +22,7 @@ const SettingsPage: React.FC = () => {
                 <select
                   id="template-color"
                   value={settings.templateColor}
-                  onChange={(e) => updateSettings({ templateColor: e.target.value })}
+                  onChange={(e) => updateSettings({ templateColor: e.target.value as any })}
                   className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
                 >
                   <option value="default">Default</option>
