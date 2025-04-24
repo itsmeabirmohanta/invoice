@@ -1,7 +1,6 @@
 import React from 'react';
 import { useInvoice } from '../../context/InvoiceContext';
 import EmailPreview from './EmailPreview';
-import TemplateSelector from './TemplateSelector';
 import TaxSettings from './TaxSettings';
 import DiscountSettings from './DiscountSettings';
 import CurrencySelector from './CurrencySelector';
@@ -16,7 +15,6 @@ const InvoiceSidebar: React.FC = () => {
         <EmailPreview />
         <PaymentSchedule />
         <ReviewSettings />
-        <TemplateSelector />
         <TaxSettings />
         <DiscountSettings />
         <CurrencySelector />

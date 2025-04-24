@@ -2,10 +2,10 @@ import React from 'react';
 import { useInvoice } from '../../context/InvoiceContext';
 
 const currencies = [
+  { code: 'INR', symbol: '₹', name: 'Indian Rupee' },
   { code: 'USD', symbol: '$', name: 'US Dollar' },
   { code: 'EUR', symbol: '€', name: 'Euro' },
   { code: 'GBP', symbol: '£', name: 'British Pound' },
-  { code: 'INR', symbol: '₹', name: 'Indian Rupee' },
   { code: 'JPY', symbol: '¥', name: 'Japanese Yen' },
 ];
 
