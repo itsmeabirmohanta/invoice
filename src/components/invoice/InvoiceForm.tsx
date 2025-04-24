@@ -127,10 +127,10 @@ const InvoiceForm: React.FC = () => {
               </label>
               <input
                 type="text"
-                value={currentInvoice.bankDetails.accountNumber}
+                value={currentInvoice.bankDetails?.accountNumber}
                 onChange={(e) => updateInvoice({ 
                   bankDetails: { 
-                    ...currentInvoice.bankDetails, 
+                    ...currentInvoice.bankDetails ?? {}, 
                     accountNumber: e.target.value 
                   } 
                 })}
@@ -145,10 +145,10 @@ const InvoiceForm: React.FC = () => {
               </label>
               <input
                 type="text"
-                value={currentInvoice.bankDetails.cifNumber}
+                value={currentInvoice.bankDetails?.cifNumber}
                 onChange={(e) => updateInvoice({ 
                   bankDetails: { 
-                    ...currentInvoice.bankDetails, 
+                    ...currentInvoice.bankDetails ?? {}, 
                     cifNumber: e.target.value 
                   } 
                 })}
@@ -163,10 +163,10 @@ const InvoiceForm: React.FC = () => {
               </label>
               <input
                 type="text"
-                value={currentInvoice.bankDetails.branch}
+                value={currentInvoice.bankDetails?.branch}
                 onChange={(e) => updateInvoice({ 
                   bankDetails: { 
-                    ...currentInvoice.bankDetails, 
+                    ...currentInvoice.bankDetails ?? {}, 
                     branch: e.target.value 
                   } 
                 })}
@@ -181,10 +181,10 @@ const InvoiceForm: React.FC = () => {
               </label>
               <input
                 type="text"
-                value={currentInvoice.bankDetails.ifsc}
+                value={currentInvoice.bankDetails?.ifsc}
                 onChange={(e) => updateInvoice({ 
                   bankDetails: { 
-                    ...currentInvoice.bankDetails, 
+                    ...currentInvoice.bankDetails ?? {}, 
                     ifsc: e.target.value 
                   } 
                 })}
