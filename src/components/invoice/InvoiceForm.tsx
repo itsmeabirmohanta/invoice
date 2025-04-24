@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useInvoice } from '../../context/InvoiceContext';
-import { Save, Trash2, Plus, ChevronDown, ChevronUp } from 'lucide-react';
+import { Save, Trash2, Plus } from 'lucide-react';
 
 const InvoiceForm: React.FC = () => {
   const { 
@@ -11,8 +11,6 @@ const InvoiceForm: React.FC = () => {
     removeInvoiceItem,
     saveInvoice
   } = useInvoice();
-  
-  const [showBankDetails, setShowBankDetails] = useState(false);
 
   if (!currentInvoice) {
     return <div>Loading...</div>;
@@ -102,98 +100,6 @@ const InvoiceForm: React.FC = () => {
             />
           </div>
         </div>
-      </div>
-      
-      {/* Bank Details - Collapsible Section */}
-      <div className="border border-gray-200 rounded-md overflow-hidden">
-        <button
-          type="button"
-          onClick={() => setShowBankDetails(!showBankDetails)}
-          className="w-full flex justify-between items-center px-4 py-3 bg-gray-50 text-left"
-        >
-          <span className="text-lg font-medium text-gray-700">Payment Details (Optional)</span>
-          {showBankDetails ? (
-            <ChevronUp size={20} className="text-gray-500" />
-          ) : (
-            <ChevronDown size={20} className="text-gray-500" />
-          )}
-        </button>
-        
-        {showBankDetails && (
-          <div className="p-4 grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Account Number
-              </label>
-              <input
-                type="text"
-                value={currentInvoice.bankDetails?.accountNumber}
-                onChange={(e) => updateInvoice({ 
-                  bankDetails: { 
-                    ...currentInvoice.bankDetails ?? {}, 
-                    accountNumber: e.target.value 
-                  } 
-                })}
-                placeholder=""
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              />
-            </div>
-            
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                CIF Number
-              </label>
-              <input
-                type="text"
-                value={currentInvoice.bankDetails?.cifNumber}
-                onChange={(e) => updateInvoice({ 
-                  bankDetails: { 
-                    ...currentInvoice.bankDetails ?? {}, 
-                    cifNumber: e.target.value 
-                  } 
-                })}
-                placeholder=""
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              />
-            </div>
-            
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Branch
-              </label>
-              <input
-                type="text"
-                value={currentInvoice.bankDetails?.branch}
-                onChange={(e) => updateInvoice({ 
-                  bankDetails: { 
-                    ...currentInvoice.bankDetails ?? {}, 
-                    branch: e.target.value 
-                  } 
-                })}
-                placeholder=""
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              />
-            </div>
-            
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                IFSC Code
-              </label>
-              <input
-                type="text"
-                value={currentInvoice.bankDetails?.ifsc}
-                onChange={(e) => updateInvoice({ 
-                  bankDetails: { 
-                    ...currentInvoice.bankDetails ?? {}, 
-                    ifsc: e.target.value 
-                  } 
-                })}
-                placeholder=""
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              />
-            </div>
-          </div>
-        )}
       </div>
       
       {/* Invoice items */}

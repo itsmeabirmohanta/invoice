@@ -22,13 +22,6 @@ export interface BusinessDetails {
   businessNumber?: string;
 }
 
-export interface BankDetails {
-  accountNumber?: string;
-  cifNumber?: string;
-  branch?: string;
-  ifsc?: string;
-}
-
 export interface PaymentScheduleInfo {
   intervals: number;
   startDate: string;
@@ -45,7 +38,6 @@ export interface Invoice {
   to: BusinessDetails;
   items: InvoiceItem[];
   notes?: string;
-  bankDetails?: BankDetails;
   tax?: {
     type: string;
     rate?: number;

@@ -279,17 +279,6 @@ const InvoicePreviewView: React.FC = () => {
               </div>
             </div>
             
-            <!-- Bank Details -->
-            ${currentInvoice.bankDetails?.accountNumber ? `
-              <div class="section">
-                <h3 class="mb-2">Bank Details</h3>
-                ${currentInvoice.bankDetails.accountNumber ? `<p>${currentInvoice.bankDetails.accountNumber}</p>` : ''}
-                ${currentInvoice.bankDetails.cifNumber ? `<p>${currentInvoice.bankDetails.cifNumber}</p>` : ''}
-                ${currentInvoice.bankDetails.branch ? `<p>${currentInvoice.bankDetails.branch}</p>` : ''}
-                ${currentInvoice.bankDetails.ifsc ? `<p>${currentInvoice.bankDetails.ifsc}</p>` : ''}
-              </div>
-            ` : ''}
-            
             <!-- Notes -->
             ${currentInvoice.notes ? `
               <div class="section">
@@ -506,17 +495,6 @@ const InvoicePreviewView: React.FC = () => {
           </div>
         </div>
 
-        {/* Bank Details */}
-        {currentInvoice.bankDetails && (
-          <div className="mb-6 bank-details section">
-            <h2 className="font-bold mb-1">Bank Details</h2>
-            <p className="text-gray-700">{currentInvoice.bankDetails.accountNumber}</p>
-            <p className="text-gray-700">{currentInvoice.bankDetails.cifNumber}</p>
-            <p className="text-gray-700">{currentInvoice.bankDetails.branch}</p>
-            <p className="text-gray-700">{currentInvoice.bankDetails.ifsc}</p>
-          </div>
-        )}
-        
         {/* Notes */}
         {currentInvoice.notes && (
           <div className="mb-6 notes section">

@@ -76,12 +76,6 @@ const defaultInvoice: Invoice = {
       qty: 1,
     },
   ],
-  bankDetails: {
-    accountNumber: 'A/C No.: ',
-    cifNumber: 'CIF: ',
-    branch: 'Branch: ',
-    ifsc: 'IFSC: ',
-  },
   currency: 'INR',
   tax: {
     type: 'None',
