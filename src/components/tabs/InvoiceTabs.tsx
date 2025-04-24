@@ -110,12 +110,6 @@ const InvoiceTabs: React.FC = () => {
           active={activeView === 'edit'}
           onClick={() => setActiveView('edit')}
         />
-        <TabButton
-          view="history"
-          label="History"
-          active={activeView === 'history'}
-          onClick={() => setActiveView('history')}
-        />
       </div>
       <div className="flex p-1 gap-2">
         <ActionButton 

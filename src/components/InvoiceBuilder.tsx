@@ -26,7 +26,6 @@ const InvoiceBuilder: React.FC = () => {
             <div className="p-4">
               {activeView === 'edit' && currentInvoice && <InvoiceEditView />}
               {activeView === 'preview' && currentInvoice && <InvoicePreviewView />}
-              {activeView === 'history' && <div className="p-6">History view (coming soon)</div>}
             </div>
           </div>
           <div className="w-full md:w-1/4">

@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { FileText, Settings, Home, HelpCircle, Clipboard, Menu, X, Plus } from 'lucide-react';
 import NavLoading from './NavLoading';
+import { useInvoice } from '../../context/InvoiceContext';
 
 const NavBar: React.FC = () => {
   const router = useRouter();
@@ -11,6 +12,7 @@ const NavBar: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isClient, setIsClient] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const { createNewInvoice } = useInvoice();
 
   // Run only client-side
   useEffect(() => {
@@ -40,6 +42,11 @@ const NavBar: React.FC = () => {
   }, []);
 
   const isActive = (path: string) => currentPath === path;
+
+  const handleNewInvoice = () => {
+    createNewInvoice();
+    router.push('/');
+  };
 
   const navItems = [
     { path: '/', name: 'Dashboard', icon: <Home size={18} /> },
@@ -101,7 +108,7 @@ const NavBar: React.FC = () => {
               ))}
               
               <button 
-                onClick={() => router.push('/invoices/new')}
+                onClick={handleNewInvoice}
                 className="px-3 py-2 rounded-md bg-blue-600 text-white text-sm font-medium flex items-center space-x-1 hover:bg-blue-700 transition-colors"
               >
                 <Plus size={18} />
@@ -143,7 +150,7 @@ const NavBar: React.FC = () => {
           
           <button 
             onClick={() => {
-              router.push('/invoices/new');
+              handleNewInvoice();
               setMobileMenuOpen(false);
             }}
             className="w-full px-3 py-2 rounded-md bg-blue-600 text-white text-base font-medium flex items-center space-x-2 hover:bg-blue-700 transition-colors"
